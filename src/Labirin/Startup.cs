@@ -10,10 +10,10 @@ namespace Labirin {
         public static void Main() {
             var p = new Program();
 
-            p.BrainPadSetup();
+            p.BoardSetup();
 
             while (true) {
-                p.BrainPadLoop();
+                p.ProgramLoop();
 
                 Thread.Sleep(10);
             }
@@ -21,7 +21,7 @@ namespace Labirin {
     }
 
     [DebuggerNonUserCode]
-    public static class BrainPad {
+    public static class StarterKit {
         public static uint colorBlue = 0;
         public static uint colorWhite = 0;
         public static double accelX = 0;

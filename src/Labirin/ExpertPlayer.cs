@@ -440,17 +440,17 @@ namespace Labirin {
         }
         void makeSound() {
 
-            BrainPad.Buzzer.Out(15, 50, 1000);
+            StarterKit.Buzzer.Out(15, 50, 1000);
 
         }
 
         void resetPlayer() {
-            BrainPad.ClearPart(getX(), getY(), 3, 3);
+            StarterKit.ClearPart(getX(), getY(), 3, 3);
 
             posX = 23;
             posY = 21;
 
-            BrainPad.Display.DrawRectangle(BrainPad.colorBlue, getX(), getY(), 3, 3);
+            StarterKit.Display.DrawRectangle(StarterKit.colorBlue, getX(), getY(), 3, 3);
         }
     }
 }

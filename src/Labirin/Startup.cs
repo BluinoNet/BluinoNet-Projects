@@ -74,10 +74,6 @@ public static void Setup(ESP32StarterKit board)
         public static TouchSensor Button3 { get; set; } 
         public static Tunes Buzzer { get; set; } 
         public static SSD1306Imp Display { get; set; }
-        //public static LightBulb LightBulb { get; } = new LightBulb();
-        //public static LightSensor LightSensor { get; } = new LightSensor();
-        //public static ServoMotors ServoMotors { get; } = new ServoMotors();
-        //public static TemperatureSensor TemperatureSensor { get; } = new TemperatureSensor();
-        //public static Wait Wait { get; } = new Wait();
+      
     }
 }

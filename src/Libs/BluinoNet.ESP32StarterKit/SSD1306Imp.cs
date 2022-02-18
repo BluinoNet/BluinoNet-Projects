@@ -35,7 +35,7 @@ namespace BluinoNet
         public Image CreateImage(
           int width,
           int height,
-          double[] data,
+          int[] data,
           int hScale,
           int vScale,
           Image.Transform transform)

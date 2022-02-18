@@ -14,7 +14,7 @@ namespace BluinoNet
 
     public int Width { get; internal set; }
 
-    public double[] Data { get; internal set; }
+    public int[] Data { get; internal set; }
 
     public Image(string img, int width, int height)
       : this(img, width, height, 1, 1, Image.Transform.None)
@@ -29,19 +29,19 @@ namespace BluinoNet
       int vScale,
       Image.Transform transform)
     {
-      double[] data = new double[img.Length];
+      int[] data = new int[img.Length];
       for (int index = 0; index < img.Length; ++index)
-        data[index] = img[index] != ' ' ? 1.0 : 0.0;
+        data[index] = img[index] != ' ' ? 1 : 0;
       this.CreateImage(data, width, height, hScale, vScale, transform);
     }
 
-    public Image(double[] data, int width, int height)
+    public Image(int[] data, int width, int height)
       : this(data, width, height, 1, 1, Image.Transform.None)
     {
     }
 
     public Image(
-      double[] data,
+      int[] data,
       int width,
       int height,
       int hScale,
@@ -52,7 +52,7 @@ namespace BluinoNet
     }
 
     private void CreateImage(
-      double[] data,
+      int[] data,
       int width,
       int height,
       int hScale,
@@ -63,7 +63,7 @@ namespace BluinoNet
         throw new Exception("Incorrect image data size");
       this.Height = height * vScale;
       this.Width = width * hScale;
-      this.Data = new double[this.Width * this.Height];
+      this.Data = new int[this.Width * this.Height];
       for (int index1 = 0; index1 < this.Width; ++index1)
       {
         for (int index2 = 0; index2 < this.Height; ++index2)

@@ -1,4 +1,4 @@
-﻿using nanoFramework.Devices.OneWire;
+﻿using nanoFramework.Device.OneWire;
 using System;
 using System.Collections;
 using System.Diagnostics;
@@ -29,7 +29,7 @@ namespace BluinoNet.Modules
 
         public DS18B20(int oneWirePin)
         {
-           var oneWire = new OneWireController();
+           var oneWire = new OneWireHost();
             ////////////////////////////////////////////////////////////////////
             // Sample code to read serial number for a devices present in bus
             // 
@@ -130,7 +130,7 @@ namespace BluinoNet.Modules
         /// <summary>
         /// The one wire bus.
         /// </summary>
-        public OneWireController OneWire { get; private set; }
+        public OneWireHost OneWire { get; private set; }
 
         /// <summary>
         /// The last read temperature.

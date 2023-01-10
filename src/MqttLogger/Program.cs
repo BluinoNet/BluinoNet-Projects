@@ -94,7 +94,7 @@ namespace MqttLogger
                         StarterKit.LightBulb.SetColorRGB((int)(TemperaturePosition / 32), 0, (int)((127 - TemperaturePosition) / 16));
                     }
                     
-                    sensorData.Distance = rnd.Next(100);
+                    sensorData.Temp = rnd.Next(100);
                     var json = nanoFramework.Json.JsonConvert.SerializeObject(sensorData);
                     byte[] message = Encoding.UTF8.GetBytes(json);
                     client.Publish(topic, message, MqttQoSLevel.ExactlyOnce, false);
@@ -112,7 +112,7 @@ namespace MqttLogger
             client.Disconnect();
 
         }
-        private const string c_SSID = "POCO F3";
+        private const string c_SSID = "WifiAsyik";
         private const string c_AP_PASSWORD = "123qweasd";
 
        

@@ -87,7 +87,7 @@ namespace AzureDevice
                 }
                 while (!Connected)
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(3000);
                 }
 
             }
@@ -109,15 +109,15 @@ namespace AzureDevice
 
             // Data time is important for calculate expire time
             //SystemTime.SetTime(new DateTime(2023, 1, 10));
-            /*
+            
             var sas = new SharedAccessSignatureBuilder()
             {
-                Key = "vj7aZFDZikR7XJv75Ah50EC5fXPsHHHWrcBQ6OugcxU",
+                Key = "1hyvQvLk7mWsQmBJ/MuTxWqiwr1nqtNnBs6gNqspta4=",
                 KeyName = "iothubowner",
                 Target = "BmcIoTHub.azure-devices.net",
                 TimeToLive = TimeSpan.FromDays(365) // at least 1 day.
             };
-            */
+            
             // define topics
             var topicDeviceToServer =
             string.Format("devices/{0}/messages/events/", deviceId);
@@ -133,8 +133,8 @@ namespace AzureDevice
                 client.MqttMsgPublishReceived += Client_MqttMsgPublishReceived;
 
 
-                var sas = "SharedAccessSignature sr=BmcIoTHub.azure-devices.net&sig=uhce%2BkWkx5k299CKCqQbhe5DT9EyzrISTEczzSznA%2BE%3D&se=1704889619&skn=iothubowner";
-                var returnCode = client.Connect(deviceId, username, sas);
+                //var sas = "SharedAccessSignature sr=BmcIoTHub.azure-devices.net&sig=uhce%2BkWkx5k299CKCqQbhe5DT9EyzrISTEczzSznA%2BE%3D&se=1704889619&skn=iothubowner";
+                var returnCode = client.Connect(deviceId, username, sas.ToSignature());
 
                 if (returnCode != nanoFramework.M2Mqtt.Messages.MqttReasonCode.Success)
                     throw new Exception("Could not connect!");

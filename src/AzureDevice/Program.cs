@@ -16,12 +16,8 @@ namespace AzureDevice
 {
     public class Program
     {
-        const string DeviceID = "myFirstDevice";
-        const string IotBrokerAddress = "BmcIoTHub.azure-devices.net";
         const string Ssid = "WholeOffice";
         const string Password = "123qweasd";
-        static bool ShoudIStop = false;
-        static int sleepTimeMinutes = 1;
 
         /// <summary>
         /// Event handler for when Wifi scan completes
@@ -79,16 +75,16 @@ namespace AzureDevice
                 Thread.Sleep(10_000);
 
                 // Loop forever scanning every 30 seconds
-               
-                    try
-                    {
-                        Debug.WriteLine("starting Wi-Fi scan");
-                        wifi.ScanAsync();
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine($"Failure starting a scan operation: {ex}");
-                    }
+
+                try
+                {
+                    Debug.WriteLine("starting Wi-Fi scan");
+                    wifi.ScanAsync();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine($"Failure starting a scan operation: {ex}");
+                }
                 while (!Connected)
                 {
                     Thread.Sleep(1000);
@@ -131,45 +127,29 @@ namespace AzureDevice
 
             try
             {
-                /*
-                var clientSetting = new MqttClientSetting
-                {
-                    BrokerName = iotHubName,
-                    BrokerPort = iotHubPort,
-                    ClientCertificate = null,
-                    CaCertificate = caCert,
-                    SslProtocol = System.Security.Authentication.SslProtocols.Tls12
-                };
-                */
-                //var client = new Mqtt(clientSetting);
 
                 var client = new MqttClient(iotHubName, iotHubPort, true, caCert, null, MqttSslProtocols.TLSv1_2);
-                //var clientId = Guid.NewGuid().ToString();
-                //client.Connect(clientId);
-
 
                 client.MqttMsgPublishReceived += Client_MqttMsgPublishReceived;
 
-               
-                var sas = "SharedAccessSignature sr=BmcIoTHub.azure-devices.net&sig=uhce%2BkWkx5k299CKCqQbhe5DT9EyzrISTEczzSznA%2BE%3D&se=1704889619&skn=iothubowner";
-                var returnCode = client.Connect(deviceId,username,sas);
 
-                if (returnCode !=  nanoFramework.M2Mqtt.Messages.MqttReasonCode.Success)
+                var sas = "SharedAccessSignature sr=BmcIoTHub.azure-devices.net&sig=uhce%2BkWkx5k299CKCqQbhe5DT9EyzrISTEczzSznA%2BE%3D&se=1704889619&skn=iothubowner";
+                var returnCode = client.Connect(deviceId, username, sas);
+
+                if (returnCode != nanoFramework.M2Mqtt.Messages.MqttReasonCode.Success)
                     throw new Exception("Could not connect!");
 
                 ushort packetId = 1;
 
                 client.Subscribe(new string[] { topicService2Device }, new nanoFramework.M2Mqtt.Messages.MqttQoSLevel[]
-                    {  nanoFramework.M2Mqtt.Messages.MqttQoSLevel.ExactlyOnce });//, packetId++);
+                    {  nanoFramework.M2Mqtt.Messages.MqttQoSLevel.ExactlyOnce });
 
                 client.Subscribe(new string[] { topicDeviceToServer }, new nanoFramework.M2Mqtt.Messages.MqttQoSLevel[]
-                    {  nanoFramework.M2Mqtt.Messages.MqttQoSLevel.ExactlyOnce });//, packetId++);
+                    {  nanoFramework.M2Mqtt.Messages.MqttQoSLevel.ExactlyOnce });
 
                 for (int i = 0; i < 100; i++)
                 {
-                    client.Publish(topicDeviceToServer, Encoding.UTF8.GetBytes
-                        ($"Count-{i}"));
-                    //, nanoFramework.M2Mqtt.Messages.MqttQoSLevel.AtMostOnce, false, packetId++);
+                    client.Publish(topicDeviceToServer, Encoding.UTF8.GetBytes($"Count-{i}"));
                     Thread.Sleep(1000);
                 }
             }
@@ -184,12 +164,12 @@ namespace AzureDevice
 
         private static void Client_MqttMsgPublishReceived(object sender, nanoFramework.M2Mqtt.Messages.MqttMsgPublishEventArgs e)
         {
-          
-                Debug.WriteLine("Received message: " + Encoding.UTF8.GetString(e.Message,0,e.Message.Length));
-            
+
+            Debug.WriteLine("Received message: " + Encoding.UTF8.GetString(e.Message, 0, e.Message.Length));
+
         }
 
-    
+
     }
 }
 /*
